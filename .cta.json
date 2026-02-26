@@ -4,7 +4,6 @@
   "typescript": true,
   "packageManager": "pnpm",
   "includeExamples": false,
-  "tailwind": true,
   "addOnOptions": {},
   "envVarValues": {},
   "git": true,
