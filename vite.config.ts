@@ -16,15 +16,10 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
-  resolve: {
-    alias: {
-      '@fluentui/react-components': path.resolve(
-        __dirname,
-        'node_modules/@fluentui/react-components/lib/index.js',
-      ),
-    },
-  },
   ssr: {
+    resolve: {
+      conditions: ['import', 'module', 'browser', 'default'],
+    },
     noExternal: [/^@fluentui\//],
   },
 })
