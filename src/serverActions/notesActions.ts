@@ -37,3 +37,23 @@ export const addNote = createServerFn({ method: 'POST' })
       throw new Error('Failed to add note')
     }
   })
+
+export const deleteNote = createServerFn({ method: 'POST' })
+  .inputValidator((data: { id: string }) => {
+    if (!data.id || !data.id.trim()) {
+      throw new Error('ID is required')
+    }
+
+    return data
+  })
+  .handler(async ({ data }) => {
+    try {
+      const notes = await getNotes()
+      const updatedNotes = notes.filter((note: { id: string }) => note.id !== data.id)
+      await fs.promises.writeFile(JOKES_FILE, JSON.stringify(updatedNotes, null, 2), 'utf-8')
+      return { id: data.id }
+    } catch (error) {
+      console.error('Error deleting note:', error)
+      throw new Error('Failed to delete note')
+    }
+  })

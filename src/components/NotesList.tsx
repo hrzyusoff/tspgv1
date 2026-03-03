@@ -1,6 +1,8 @@
 import type { Note } from '@/types/notes'
-import { Card, Divider, Label, makeStyles, Title2 } from '@fluentui/react-components'
+import { Button, Card, Divider, Label, makeStyles, Title2 } from '@fluentui/react-components'
 import { NoteForm } from './NoteForm'
+import { deleteNote } from '@/serverActions/notesActions'
+import { useRouter } from '@tanstack/react-router'
 
 interface NotesListProps {
   notes: Note[]
@@ -37,9 +39,26 @@ const useStyles = makeStyles({
 
 export function NotesList({ notes }: NotesListProps) {
   const styles = useStyles()
+  const router = useRouter()
 
   if (!notes || notes.length === 0) {
     return <p>No notes available.</p>
+  }
+
+  const handleDelete = async (id: string) => {
+    console.log('Delete note with id:', id)
+
+    if (!id) {
+      console.error('Invalid ID for deletion:', id)
+      return
+    }
+
+    try {
+      await deleteNote({ data: { id } })
+      await router.invalidate()
+    } catch (error) {
+      console.error('Error in handleDelete:', error)
+    }
   }
 
   return (
@@ -52,6 +71,7 @@ export function NotesList({ notes }: NotesListProps) {
           <p className={styles.cardTitle}>{note.question}</p>
           <Divider />
           <p>{note.answer}</p>
+          <Button appearance="primary" onClick={() => handleDelete(note.id)}>Delete</Button>
         </Card>
       ))}
     </div>

@@ -5,19 +5,9 @@
     "answer": "Because they have two shifts"
   },
   {
-    "id": "2",
-    "question": "Are you a RESTful API?",
-    "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-  },
-  {
     "id": "3",
     "question": "I used to know a note about Java",
     "answer": "But I ran out of memory."
-  },
-  {
-    "id": "4",
-    "question": "Why do Front-End Developers eat lunch alone?",
-    "answer": "Because, they don't know how to join tables."
   },
   {
     "id": "5",
@@ -25,18 +15,8 @@
     "answer": "var war;"
   },
   {
-    "id": "24f13dec-8747-40f3-bfde-103a5434d87b",
-    "question": "Question 1",
-    "answer": "Answer 1"
-  },
-  {
-    "id": "d2029aac-295e-42a8-9aa0-469b60c9d891",
-    "question": "Question 2",
-    "answer": "Answer 2"
-  },
-  {
-    "id": "4c1b2d48-696c-494d-a8bf-f6ee7b4d0bfa",
-    "question": "T1",
-    "answer": "W@"
+    "id": "6944d978-e333-4634-91ce-7069aaa8b395",
+    "question": "Lorem Ipsum ",
+    "answer": "Dolor Sit Amet"
   }
 ]

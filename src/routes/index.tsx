@@ -1,5 +1,5 @@
 import { getNotes } from '@/serverActions/notesActions'
-import { makeStyles, Title2 } from '@fluentui/react-components'
+import { Card, makeStyles, Title2 } from '@fluentui/react-components'
 import { createFileRoute, Link } from '@tanstack/react-router'
 
 // TODO: Redundant with the one in the NotesList.tsx, move to a shared file
@@ -10,6 +10,12 @@ const breakpoints = {
 }
 
 const useStyles = makeStyles({
+  mainContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '100px 0',
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -24,7 +30,7 @@ const useStyles = makeStyles({
     margin: "auto",
     width: "720px",
     maxWidth: "100%",
-    marginBottom: "16px",
+    marginBottom: "2px",
   },
   cardTitle: {
     fontWeight: "bold",
@@ -43,9 +49,13 @@ function App() {
   const styles = useStyles()
 
   return (
+    <div className={styles.mainContainer}>
     <div className={styles.container}>
       <Title2>TanStack with FluentUI</Title2>
-      <Link to="/notes">Go to Notes</Link>
+      <Card className={styles.card}>
+        <Link to="/notes">Notes</Link>
+      </Card>
+    </div>
     </div>
   )
 }
