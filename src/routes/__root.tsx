@@ -16,7 +16,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'TanStack FluentUI',
       },
     ],
     links: [
@@ -24,6 +24,10 @@ export const Route = createRootRoute({
         rel: 'stylesheet',
         href: appCss,
       },
+      {
+        rel: 'icon',
+        href: 'https://tanstack.com/favicon.ico',
+      }
     ],
   }),
   shellComponent: RootDocument,

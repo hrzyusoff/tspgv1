@@ -1,19 +1,51 @@
-import { JokesList } from '@/components/JokesList'
-import { getJokes } from '@/serverActions/jokesActions'
-import { createFileRoute } from '@tanstack/react-router'
+import { getNotes } from '@/serverActions/notesActions'
+import { makeStyles, Title2 } from '@fluentui/react-components'
+import { createFileRoute, Link } from '@tanstack/react-router'
+
+// TODO: Redundant with the one in the NotesList.tsx, move to a shared file
+const breakpoints = {
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+}
+
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    width: '100%',
+    margin: '0 auto 16px',
+    [`@media (min-width: ${breakpoints.sm})`]: { width: '540px' }, // sm
+    [`@media (min-width: ${breakpoints.md})`]: { width: '720px' }, // md
+    [`@media (min-width: ${breakpoints.lg})`]: { width: '900px' }, // lg
+  },
+  card: {
+    margin: "auto",
+    width: "720px",
+    maxWidth: "100%",
+    marginBottom: "16px",
+  },
+  cardTitle: {
+    fontWeight: "bold",
+    marginBottom: "8px",
+  },
+})
 
 export const Route = createFileRoute('/')({
   loader: async () => {
-    return getJokes()
+    return getNotes()
   },
   component: App
 })
 
 function App() {
-  const jokes = Route.useLoaderData() || []
+  const styles = useStyles()
+
   return (
-    <div>
-      <JokesList jokes={jokes} />
+    <div className={styles.container}>
+      <Title2>TanStack with FluentUI</Title2>
+      <Link to="/notes">Go to Notes</Link>
     </div>
   )
 }

@@ -1,9 +1,9 @@
-import type { Joke } from '@/types/jokes'
-import { Card, Divider, makeStyles, Title2 } from '@fluentui/react-components'
-import { JokeForm } from './JokeForm'
+import type { Note } from '@/types/notes'
+import { Card, Divider, Label, makeStyles, Title2 } from '@fluentui/react-components'
+import { NoteForm } from './NoteForm'
 
-interface JokesListProps {
-  jokes: Joke[]
+interface NotesListProps {
+  notes: Note[]
 }
 
 const breakpoints = {
@@ -35,22 +35,23 @@ const useStyles = makeStyles({
   },
 })
 
-export function JokesList({ jokes }: JokesListProps) {
+export function NotesList({ notes }: NotesListProps) {
   const styles = useStyles()
 
-  if (!jokes || jokes.length === 0) {
-    return <p>No jokes available.</p>
+  if (!notes || notes.length === 0) {
+    return <p>No notes available.</p>
   }
 
   return (
     <div className={styles.container}>
-      <Title2>Jokes Collection</Title2>
-      <JokeForm />
-      {jokes.map((joke) => (
-        <Card key={joke.id} className={styles.card}>
-          <p className={styles.cardTitle}>{joke.question}</p>
+      <Title2>Notes Collection</Title2>
+      <Label>This page implements note collection by reading and writing a file method.</Label>
+      <NoteForm />
+      {notes.map((note) => (
+        <Card key={note.id} className={styles.card}>
+          <p className={styles.cardTitle}>{note.question}</p>
           <Divider />
-          <p>{joke.answer}</p>
+          <p>{note.answer}</p>
         </Card>
       ))}
     </div>
