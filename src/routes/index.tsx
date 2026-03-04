@@ -1,6 +1,6 @@
 import { getNotes } from '@/serverActions/notesActions'
-import { Card, makeStyles, Title2 } from '@fluentui/react-components'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Body1, Card, makeStyles, Subtitle2Stronger, Title2 } from '@fluentui/react-components'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
 // TODO: Redundant with the one in the NotesList.tsx, move to a shared file
 const breakpoints = {
@@ -47,15 +47,30 @@ export const Route = createFileRoute('/')({
 
 function App() {
   const styles = useStyles()
+  const navigate = useNavigate();
 
   return (
     <div className={styles.mainContainer}>
-    <div className={styles.container}>
-      <Title2>TanStack with FluentUI</Title2>
-      <Card className={styles.card}>
-        <Link to="/notes">Notes</Link>
-      </Card>
-    </div>
+      <div className={styles.container}>
+        <Title2>TanStack with FluentUI</Title2>
+        <Card
+          className={styles.card}
+          onClick={() =>
+            navigate({
+              to: '/notes'
+            })
+          }
+        >
+          <Subtitle2Stronger>Notes</Subtitle2Stronger>
+          <Body1>Created by Reading & Writing a File</Body1>
+        </Card>
+        <Card
+          className={styles.card}
+        >
+          <Subtitle2Stronger>Just another apps</Subtitle2Stronger>
+          <Body1>Lorem ipsum dolor sit amet</Body1>
+        </Card>
+      </div>
     </div>
   )
 }
