@@ -6,7 +6,7 @@ import { addNote } from '@/serverActions/notesActions'
 const useStyles = makeStyles({
   formContainer: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignContent: 'end',
     gap: '20px',
     '> div': { display: 'flex', flexDirection: 'column', gap: '2px' },
@@ -22,25 +22,25 @@ export function NoteForm() {
   const router = useRouter()
   const largeId = useId('input-large')
 
-  const [question, setQuestion] = useState('')
-  const [answer, setAnswer] = useState('')
+  const [header, setHeader] = useState('')
+  const [body, setBody] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!question || !answer || isSubmitting) {
+    if (!header || !body || isSubmitting) {
       return
     }
 
     try {
       setError(null)
       setIsSubmitting(true)
-      await addNote({ data: { question, answer } })
+      await addNote({ data: { header, body } })
 
-      setQuestion('')
-      setAnswer('')
+      setHeader('')
+      setBody('')
 
       await router.invalidate()
     } catch (err) {
@@ -58,13 +58,13 @@ export function NoteForm() {
       )}
       <div className={styles.formContainer}>
         <div>
-          <Input size='large' id={largeId} value={question} onChange={e => setQuestion(e.target.value)} placeholder='Enter note question'/>
+          <Input size='large' id={largeId} value={header} onChange={e => setHeader(e.target.value)} placeholder='Note header'/>
         </div>
         <div>
-          <Input size='large' id={largeId} value={answer} onChange={e => setAnswer(e.target.value)} placeholder='Enter note answer'/>
+          <Input size='large' id={largeId} value={body} onChange={e => setBody(e.target.value)} placeholder='Note body'/>
         </div>
         <div className={styles.button}>
-          <Button type='submit' size='large' disabled={isSubmitting || !question || !answer} appearance="primary">{isSubmitting ? 'Adding...' : 'Add Note'}</Button>
+          <Button type='submit' size='large' disabled={isSubmitting || !header || !body} appearance="primary">{isSubmitting ? 'Adding...' : 'Add Note'}</Button>
         </div>
       </div>
     </form>

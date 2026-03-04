@@ -27,11 +27,29 @@ export const Route = createRootRoute({
       {
         rel: 'icon',
         href: 'https://tanstack.com/favicon.ico',
+      },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossOrigin: 'anonymous',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Silkscreen:wght@400&display=swap',
       }
     ],
   }),
   shellComponent: RootDocument,
 })
+
+const customTheme = {
+  ...webLightTheme,
+  fontFamilyBase: 'Silkscreen, cursive, sans-serif',
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
@@ -40,7 +58,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-          <FluentProvider theme={webLightTheme}>
+          <FluentProvider theme={customTheme}>
             {children}
           </FluentProvider>
           <TanStackDevtools

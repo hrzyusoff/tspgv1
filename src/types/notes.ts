@@ -1,7 +1,7 @@
 export interface Note {
   id: string
-  question: string
-  answer: string
+  header: string
+  body: string
 }
 
 export type NotesData = Note[]

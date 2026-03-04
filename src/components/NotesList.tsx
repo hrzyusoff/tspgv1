@@ -1,5 +1,5 @@
 import type { Note } from '@/types/notes'
-import { Button, Card, Divider, Label, makeStyles, Title2 } from '@fluentui/react-components'
+import { Button, Card, Divider, Label, makeStyles, Subtitle1, Title2 } from '@fluentui/react-components'
 import { NoteForm } from './NoteForm'
 import { deleteNote } from '@/serverActions/notesActions'
 import { useRouter } from '@tanstack/react-router'
@@ -25,15 +25,25 @@ const useStyles = makeStyles({
     [`@media (min-width: ${breakpoints.md})`]: { width: '720px' }, // md
     [`@media (min-width: ${breakpoints.lg})`]: { width: '900px' }, // lg
   },
-  card: {
-    margin: "auto",
-    width: "720px",
-    maxWidth: "100%",
-    marginBottom: "16px",
+  notesCardContainer: {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: "20px",
   },
-  cardTitle: {
-    fontWeight: "bold",
-    marginBottom: "8px",
+  noteCard: {
+    border: "4px solid",
+    padding: "8px 16px 16px 16px",
+  },
+  noteCardTop: {
+    display: "flex",
+    justifyContent: "flex-end",
+    "& Button": {
+      minWidth: "24px",
+      padding: "0",
+    },
+    "& Button:hover": {
+      color: "#E84641",
+    },
   },
 })
 
@@ -65,15 +75,23 @@ export function NotesList({ notes }: NotesListProps) {
     <div className={styles.container}>
       <Title2>Notes Collection</Title2>
       <Label>This page implements note collection by reading and writing a file method.</Label>
+      <Subtitle1>Jot Down Your Notes Here</Subtitle1>
       <NoteForm />
-      {notes.map((note) => (
-        <Card key={note.id} className={styles.card}>
-          <p className={styles.cardTitle}>{note.question}</p>
-          <Divider />
-          <p>{note.answer}</p>
-          <Button appearance="primary" onClick={() => handleDelete(note.id)}>Delete</Button>
-        </Card>
-      ))}
+      <Subtitle1>Your Notes</Subtitle1>
+      <div className={styles.notesCardContainer}>
+        {notes.map((note) => (
+          <div key={note.id} className={styles.noteCard}>
+            <div className={styles.noteCardTop}>
+              <Button appearance="transparent" onClick={() => handleDelete(note.id)}>X</Button>
+            </div>
+            <div>
+              <p>{note.header}</p>
+              <Divider />
+              <p>{note.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '100px 0',
+    height: 'calc(100vh - 18px)',
   },
   container: {
     display: 'flex',
@@ -31,6 +31,9 @@ const useStyles = makeStyles({
     width: "720px",
     maxWidth: "100%",
     marginBottom: "2px",
+    ":hover": {
+      backgroundColor: "#FF5640",
+    },
   },
   cardTitle: {
     fontWeight: "bold",
@@ -66,9 +69,14 @@ function App() {
         </Card>
         <Card
           className={styles.card}
+          onClick={() =>
+            navigate({
+              to: '/users'
+            })
+          }
         >
-          <Subtitle2Stronger>Just another apps</Subtitle2Stronger>
-          <Body1>Lorem ipsum dolor sit amet</Body1>
+          <Subtitle2Stronger>Users</Subtitle2Stronger>
+          <Body1>Created by Fetching Users from API</Body1>
         </Card>
       </div>
     </div>

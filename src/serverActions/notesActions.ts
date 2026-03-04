@@ -11,12 +11,12 @@ export const getNotes = createServerFn({ method: 'GET' }).handler(async () => {
 })
 
 export const addNote = createServerFn({ method: 'POST' })
-  .inputValidator((data: { question: string; answer: string }) => {
-    if (!data.question || !data.question.trim()) {
-      throw new Error('Question is required')
+  .inputValidator((data: { header: string; body: string }) => {
+    if (!data.header || !data.header.trim()) {
+      throw new Error('Header is required')
     }
-    if (!data.answer || !data.answer.trim()) {
-      throw new Error('Answer is required')
+    if (!data.body || !data.body.trim()) {
+      throw new Error('Body is required')
     }
 
     return data
@@ -26,8 +26,8 @@ export const addNote = createServerFn({ method: 'POST' })
       const notes = await getNotes()
       const newNote = {
         id: uuidv4(),
-        question: data.question,
-        answer: data.answer,
+        header: data.header,
+        body: data.body,
       }
       const updatedNotes = [...notes, newNote]
       await fs.promises.writeFile(JOKES_FILE, JSON.stringify(updatedNotes, null, 2), 'utf-8')
