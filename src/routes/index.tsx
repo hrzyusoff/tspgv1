@@ -50,7 +50,7 @@ export const Route = createFileRoute('/')({
 
 function App() {
   const styles = useStyles()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <div className={styles.mainContainer}>

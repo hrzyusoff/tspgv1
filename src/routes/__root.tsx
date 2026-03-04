@@ -48,6 +48,12 @@ export const Route = createRootRoute({
 
 const customTheme = {
   ...webLightTheme,
+  colorBrandBackground: '#FF5640',
+  colorBrandBackgroundHover: '#D4403B',
+  colorBrandBackgroundPressed: '#FF5641',
+  colorBrandForeground1: '#0F6CBD',
+  colorBrandForegroundLink: '#0F6CBD',
+  colorBrandStroke1: '#0F6CBD',
   fontFamilyBase: 'Silkscreen, cursive, sans-serif',
 }
 

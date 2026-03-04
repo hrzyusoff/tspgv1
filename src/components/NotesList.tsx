@@ -1,8 +1,9 @@
 import type { Note } from '@/types/notes'
-import { Button, Card, Divider, Label, makeStyles, Subtitle1, Title2 } from '@fluentui/react-components'
+import { Button, Divider, Label, makeStyles, Subtitle1, Title2 } from '@fluentui/react-components'
 import { NoteForm } from './NoteForm'
 import { deleteNote } from '@/serverActions/notesActions'
 import { useRouter } from '@tanstack/react-router'
+import { BackNav } from './BackNav'
 
 interface NotesListProps {
   notes: Note[]
@@ -18,8 +19,11 @@ const useStyles = makeStyles({
   container: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
+
     gap: '16px',
     width: '100%',
+    height: 'calc(100vh - 18px)',
     margin: '0 auto 16px',
     [`@media (min-width: ${breakpoints.sm})`]: { width: '540px' }, // sm
     [`@media (min-width: ${breakpoints.md})`]: { width: '720px' }, // md
@@ -73,7 +77,7 @@ export function NotesList({ notes }: NotesListProps) {
 
   return (
     <div className={styles.container}>
-      <Title2>Notes Collection</Title2>
+      <Title2><BackNav /> Notes Collection</Title2>
       <Label>This page implements note collection by reading and writing a file method.</Label>
       <Subtitle1>Jot Down Your Notes Here</Subtitle1>
       <NoteForm />

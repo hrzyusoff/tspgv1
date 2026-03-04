@@ -1,8 +1,6 @@
-import type { Note } from '@/types/notes'
-import { Button, Card, Divider, Label, makeStyles, Persona, Title2 } from '@fluentui/react-components'
-import { NoteForm } from './NoteForm'
-import { useRouter } from '@tanstack/react-router'
+import { Label, makeStyles, Persona, Title2 } from '@fluentui/react-components'
 import { useState } from 'react'
+import { BackNav } from './BackNav'
 
 // TODO: Update this interface based on the actual user data structure
 interface UsersListProps {
@@ -35,11 +33,10 @@ const useStyles = makeStyles({
   memberCardContainer: {
     display: "grid",
     gridTemplateColumns: "repeat(2, 1fr)",
-    border: "2px solid",
-    // gap: "16px",
+    gap: "20px",
   },
   memberCard: {
-    border: "2px solid",
+    border: "4px solid",
     padding: "16px",
   },
 })
@@ -73,18 +70,11 @@ export function UsersList({ users }: UsersListProps) {
   }]
   const latestMembers = [...members, ...newMembers]
   const [ status, setStatus ] = useState("offline")
-  // const handleStatus = (e: any, name: string) => {
-  //   const selectedName = e.currentTarget.textContent.includes(name) ? name : null
-  //   console.log({ e, selectedName, name })
-  //   if (selectedName === name) {
-  //     setStatus("available")
-  //   }
-  // }
   
   return (
     <div className={styles.container}>
         <div className={styles.memberCardHeader}>
-          <Title2>Users Collection</Title2>
+          <Title2><BackNav /> Users Collection</Title2>
           <Label>This page implements user collection by fetching users from an API (JSON).</Label>
         </div>
         <div className={styles.memberCardContainer}>

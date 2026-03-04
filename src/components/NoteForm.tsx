@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { useRouter } from '@tanstack/react-router'
-import { Button, Input, makeStyles, useId } from '@fluentui/react-components'
+import { Button, Input, makeStyles, tokens, useId } from '@fluentui/react-components'
 import { addNote } from '@/serverActions/notesActions'
 
 const useStyles = makeStyles({
@@ -14,7 +14,15 @@ const useStyles = makeStyles({
   button: {
     alignSelf: 'end',
     width: '100%',
-  }
+  },
+  customInput: {
+    '&::after': {
+      borderBottomColor: tokens.colorBrandBackgroundPressed,
+    },
+    '&:focus-within::after': {
+      borderBottomColor: tokens.colorBrandBackgroundPressed,
+    },
+  },
 })
 
 export function NoteForm() {
@@ -58,10 +66,10 @@ export function NoteForm() {
       )}
       <div className={styles.formContainer}>
         <div>
-          <Input size='large' id={largeId} value={header} onChange={e => setHeader(e.target.value)} placeholder='Note header'/>
+          <Input className={styles.customInput} size='large' id={largeId} value={header} onChange={e => setHeader(e.target.value)} placeholder='Note header'/>
         </div>
         <div>
-          <Input size='large' id={largeId} value={body} onChange={e => setBody(e.target.value)} placeholder='Note body'/>
+          <Input className={styles.customInput} size='large' id={largeId} value={body} onChange={e => setBody(e.target.value)} placeholder='Note body'/>
         </div>
         <div className={styles.button}>
           <Button type='submit' size='large' disabled={isSubmitting || !header || !body} appearance="primary">{isSubmitting ? 'Adding...' : 'Add Note'}</Button>
