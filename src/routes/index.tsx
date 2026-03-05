@@ -1,5 +1,5 @@
 import { getNotes } from '@/serverActions/notesActions'
-import { Body1, Card, makeStyles, Subtitle2Stronger, Title2 } from '@fluentui/react-components'
+import { Body1, makeStyles, Subtitle2Stronger, Title2 } from '@fluentui/react-components'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
 // TODO: Redundant with the one in the NotesList.tsx, move to a shared file
@@ -26,11 +26,13 @@ const useStyles = makeStyles({
     [`@media (min-width: ${breakpoints.md})`]: { width: '720px' }, // md
     [`@media (min-width: ${breakpoints.lg})`]: { width: '900px' }, // lg
   },
-  card: {
-    margin: "auto",
-    width: "720px",
-    maxWidth: "100%",
-    marginBottom: "2px",
+  routesCardContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+    padding: '12px',
+    cursor: 'pointer',
+    border: "4px solid",
     ":hover": {
       backgroundColor: "#FF5640",
     },
@@ -51,33 +53,28 @@ export const Route = createFileRoute('/')({
 function App() {
   const styles = useStyles()
   const navigate = useNavigate()
+  const routes = [
+    { name: 'Notes', path: '/notes', title: 'Notes', description: 'Created by Reading & Writing a File' },
+    { name: 'Users', path: '/users', title: 'Users', description: 'Created by Fetching Users from API' },
+  ]
 
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container}>
         <Title2>TanStack with FluentUI</Title2>
-        <Card
-          className={styles.card}
-          onClick={() =>
-            navigate({
-              to: '/notes'
-            })
-          }
-        >
-          <Subtitle2Stronger>Notes</Subtitle2Stronger>
-          <Body1>Created by Reading & Writing a File</Body1>
-        </Card>
-        <Card
-          className={styles.card}
-          onClick={() =>
-            navigate({
-              to: '/users'
-            })
-          }
-        >
-          <Subtitle2Stronger>Users</Subtitle2Stronger>
-          <Body1>Created by Fetching Users from API</Body1>
-        </Card>
+        {routes.map(route => (
+          <div
+            className={styles.routesCardContainer}
+            onClick={() =>
+              navigate({
+                to: route.path
+              })
+            }
+          >
+            <Subtitle2Stronger>{route.title}</Subtitle2Stronger>
+            <Body1>{route.description}</Body1>
+          </div>
+        ))}
       </div>
     </div>
   )
