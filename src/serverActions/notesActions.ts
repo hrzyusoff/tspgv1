@@ -28,6 +28,7 @@ export const addNote = createServerFn({ method: 'POST' })
         id: uuidv4(),
         header: data.header,
         body: data.body,
+        createdAt: new Date().toISOString(),
       }
       const updatedNotes = [...notes, newNote]
       await fs.promises.writeFile(JOKES_FILE, JSON.stringify(updatedNotes, null, 2), 'utf-8')

@@ -12,6 +12,7 @@ dist-ssr
 __unconfig*
 todos.json
 debug.log
+notes.json
 
 # Local Netlify folder
 .netlify
