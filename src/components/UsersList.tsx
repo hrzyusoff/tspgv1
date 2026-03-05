@@ -20,7 +20,8 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     gap: '16px',
     width: '100%',
-    paddingTop: '10%',
+    paddingTop: '5%',
+    paddingBottom: '5%',
     margin: '0 auto 16px',
     [`@media (min-width: ${breakpoints.sm})`]: { width: '540px' }, // sm
     [`@media (min-width: ${breakpoints.md})`]: { width: '720px' }, // md
