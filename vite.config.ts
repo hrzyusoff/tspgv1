@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import path from 'node:path'
 import { devtools } from '@tanstack/devtools-vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
@@ -15,6 +16,12 @@ const config = defineConfig({
     tanstackStart(),
     viteReact(),
   ],
+  ssr: {
+    resolve: {
+      conditions: ['import', 'module', 'browser', 'default'],
+    },
+    noExternal: [/^@fluentui\//],
+  },
 })
 
 export default config

@@ -1,58 +1,81 @@
-import { createFileRoute } from '@tanstack/react-router'
-import {
-  Zap,
-  Server,
-  Route as RouteIcon,
-  Shield,
-  Waves,
-  Sparkles,
-} from 'lucide-react'
+import { getNotes } from '@/serverActions/notesActions'
+import { Body1, makeStyles, Subtitle2Stronger, Title2 } from '@fluentui/react-components'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/')({ component: App })
+// TODO: Redundant with the one in the NotesList.tsx, move to a shared file
+const breakpoints = {
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+}
+
+const useStyles = makeStyles({
+  mainContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 'calc(100vh - 18px)',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    width: '100%',
+    margin: '0 auto 16px',
+    [`@media (min-width: ${breakpoints.sm})`]: { width: '540px' }, // sm
+    [`@media (min-width: ${breakpoints.md})`]: { width: '720px' }, // md
+    [`@media (min-width: ${breakpoints.lg})`]: { width: '900px' }, // lg
+  },
+  routesCardContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+    padding: '12px',
+    cursor: 'pointer',
+    border: "4px solid",
+    ":hover": {
+      backgroundColor: "#FF5640",
+    },
+  },
+  cardTitle: {
+    fontWeight: "bold",
+    marginBottom: "8px",
+  },
+})
+
+export const Route = createFileRoute('/')({
+  loader: async () => {
+    return getNotes()
+  },
+  component: App
+})
 
 function App() {
-  const features = [
-    {
-      icon: <Zap className="w-12 h-12 text-cyan-400" />,
-      title: 'Powerful Server Functions',
-      description:
-        'Write server-side code that seamlessly integrates with your client components. Type-safe, secure, and simple.',
-    },
-    {
-      icon: <Server className="w-12 h-12 text-cyan-400" />,
-      title: 'Flexible Server Side Rendering',
-      description:
-        'Full-document SSR, streaming, and progressive enhancement out of the box. Control exactly what renders where.',
-    },
-    {
-      icon: <RouteIcon className="w-12 h-12 text-cyan-400" />,
-      title: 'API Routes',
-      description:
-        'Build type-safe API endpoints alongside your application. No separate backend needed.',
-    },
-    {
-      icon: <Shield className="w-12 h-12 text-cyan-400" />,
-      title: 'Strongly Typed Everything',
-      description:
-        'End-to-end type safety from server to client. Catch errors before they reach production.',
-    },
-    {
-      icon: <Waves className="w-12 h-12 text-cyan-400" />,
-      title: 'Full Streaming Support',
-      description:
-        'Stream data from server to client progressively. Perfect for AI applications and real-time updates.',
-    },
-    {
-      icon: <Sparkles className="w-12 h-12 text-cyan-400" />,
-      title: 'Next Generation Ready',
-      description:
-        'Built from the ground up for modern web applications. Deploy anywhere JavaScript runs.',
-    },
+  const styles = useStyles()
+  const navigate = useNavigate()
+  const routes = [
+    { name: 'Notes', path: '/notes', title: 'Notes', description: 'Created by Reading & Writing a File' },
+    { name: 'Users', path: '/users', title: 'Users', description: 'Created by Fetching Users from API' },
   ]
 
   return (
-    <div>
-      This is Tanstack
+    <div className={styles.mainContainer}>
+      <div className={styles.container}>
+        <Title2>TanStack with FluentUI</Title2>
+        {routes.map(route => (
+          <div
+            className={styles.routesCardContainer}
+            onClick={() =>
+              navigate({
+                to: route.path
+              })
+            }
+          >
+            <Subtitle2Stronger>{route.title}</Subtitle2Stronger>
+            <Body1>{route.description}</Body1>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
